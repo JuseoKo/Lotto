@@ -2,6 +2,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 import os
+from loguru import logger
 load_dotenv("../.env")
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6wywp#9at@k=2q0ey^z=b9ep925he&$))ih034c*a5si(fbtev'
@@ -55,7 +56,12 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+print("!")
+# logger.info(f'DB NAME : {os.getenv("PG_NAME")}')
+# logger.info(f'DB USER : {os.getenv("PG_USER")}')
+# logger.info(f'DB PASSWORD : {os.getenv("PG_PASSWORD")}')
+# logger.info(f'DB HOST : {os.getenv("PG_HOST")}')
+# logger.info(f'DB PORT : {os.getenv("PG_PORT")}')
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -64,6 +70,11 @@ DATABASES = {
         "PASSWORD": os.getenv("PG_PASSWORD"),
         "HOST": os.getenv("PG_HOST"),
         "PORT": os.getenv("PG_PORT"),
+        # "NAME": "lotto",
+        # "USER": "postgres",
+        # "PASSWORD": "password",
+        # "HOST": "lotto-db",
+        # "PORT": "5432",
     }
 }
 
