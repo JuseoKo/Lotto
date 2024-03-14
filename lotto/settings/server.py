@@ -56,12 +56,11 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-print("!")
-# logger.info(f'DB NAME : {os.getenv("PG_NAME")}')
-# logger.info(f'DB USER : {os.getenv("PG_USER")}')
-# logger.info(f'DB PASSWORD : {os.getenv("PG_PASSWORD")}')
-# logger.info(f'DB HOST : {os.getenv("PG_HOST")}')
-# logger.info(f'DB PORT : {os.getenv("PG_PORT")}')
+logger.info(f'DB NAME : {os.getenv("PG_NAME")}')
+logger.info(f'DB USER : {os.getenv("PG_USER")}')
+logger.info(f'DB PASSWORD : {os.getenv("PG_PASSWORD")}')
+logger.info(f'DB HOST : {os.getenv("PG_HOST")}')
+logger.info(f'DB PORT : {os.getenv("PG_PORT")}')
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
