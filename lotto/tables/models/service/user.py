@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, AbstractUser
 import random
 import string
 
@@ -47,17 +47,12 @@ class User(AbstractBaseUser):
     class Meta:
         db_table = 'users'
 
-    def save(self, *args, **kwargs):
-        if not self.nickname:
-            self.nickname = self.generate_random_nickname()
-        super().save(*args, **kwargs)
+    # 권한 설정
+    def has_perm(self, perm, obj=None):
+        return True
 
-    def generate_random_nickname(self):
-        """
-        랜덤 닉네임을 생성하는 함수입니다.
-        :return:
-        """
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+    def has_module_perms(self, app_label):
+        return True
 
     def __str__(self):
         return self.name

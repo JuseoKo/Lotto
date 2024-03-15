@@ -62,6 +62,7 @@ logger.info(f'DB USER : {os.getenv("PG_USER")}')
 logger.info(f'DB PASSWORD : {os.getenv("PG_PASSWORD")}')
 logger.info(f'DB HOST : {os.getenv("PG_HOST")}')
 logger.info(f'DB PORT : {os.getenv("PG_PORT")}')
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -70,11 +71,6 @@ DATABASES = {
         "PASSWORD": os.getenv("PG_PASSWORD"),
         "HOST": os.getenv("PG_HOST"),
         "PORT": os.getenv("PG_PORT"),
-        # "NAME": "lotto",
-        # "USER": "postgres",
-        # "PASSWORD": "password",
-        # "HOST": "lotto-db",
-        # "PORT": "5432",
     }
 }
 
@@ -133,3 +129,5 @@ REST_FRAMEWORK = {
 
 
 AUTH_USER_MODEL = 'tables.User'
+
+# SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
