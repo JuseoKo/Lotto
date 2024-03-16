@@ -1,10 +1,12 @@
 from django.urls import path, include
 from django.contrib import admin
-# from rest_framework import permissions
 
-from rest_framework.authtoken import views
+# from rest_framework.authtoken import views
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from settings.url_router import UrlRouter
+from rest_framework.authtoken import views
+router = UrlRouter()
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -16,8 +18,8 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('api/', include('rest_framework.urls')),
+    path('', include(router.urls)),
+    path('auth/', views.obtain_auth_token),  # 토큰 인증 뷰 추가
+    path('api/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
-    path('api-token-auth/', views.obtain_auth_token),  # 토큰 인증 뷰 추가
 ]

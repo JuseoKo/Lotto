@@ -20,8 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "drf_yasg", # swagger
-    "api",
-    "tables" # 테이블
+    "tables", # 테이블
+    # 여기부터 메인앱
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -117,9 +118,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer'
-    ],
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer'
+    # ],
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
@@ -128,6 +132,9 @@ REST_FRAMEWORK = {
 }
 
 
+AUTHENTICATION_BACKENDS = [
+    'rest_framework.authentication.TokenAuthentication',
+]
 AUTH_USER_MODEL = 'tables.User'
 
 # SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
