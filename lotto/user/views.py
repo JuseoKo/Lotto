@@ -1,4 +1,4 @@
-from tables.models.service.user import User
+from tables.models.service.user import User, UserManager
 from tables.models.service.lotto_user import LottoAccount
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
@@ -26,6 +26,31 @@ class UserViewSet(viewsets.ViewSet):
         queryset = User.objects.filter(user_id=nickname)
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    @swagger_auto_schema(tags=['User'], operation_description="유저를 생성하는 API 입니다.",
+                         request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             required=['user_id', 'email', 'nickname', 'phone_number', 'password'],  # 필수 필드 지정
+                             properties={
+                                 'user_id': openapi.Schema(type=openapi.TYPE_STRING, description='유저 아이디'),
+                                 'email': openapi.Schema(type=openapi.TYPE_STRING, description='이메일'),
+                                 'nickname': openapi.Schema(type=openapi.TYPE_STRING, description='닉네임'),
+                                 'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description='전화번호'),
+                                 'password': openapi.Schema(type=openapi.TYPE_STRING, description='비밀번호'),
+                             }
+                         )
+                         )
+    def create(self, request):
+        """
+        유저생성 api
+        :param request:
+        :return:
+        """
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            User.objects.create_user(**serializer.validated_data)
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 
